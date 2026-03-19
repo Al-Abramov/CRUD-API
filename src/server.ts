@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv';
+import { productRoutes } from './routes/products.js';
 
 dotenv.config();
 
@@ -7,8 +8,20 @@ const app = Fastify();
 
 const PORT = Number(process.env.PORT) || 4000;
 
-app.get('/', async (request, reply) => {
-  return { message: 'API is running' };
+app.register(productRoutes);
+
+app.setErrorHandler((error, request, reply) => {
+  app.log.error(error);
+
+  return reply.status(500).send({
+    message: 'Internal server error',
+  });
+});
+
+app.setNotFoundHandler((request, reply) => {
+  return reply.status(404).send({
+    message: 'Route not found',
+  });
 });
 
 const start = async () => {
