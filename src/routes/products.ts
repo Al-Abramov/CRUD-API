@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
 import { products } from '../db/products.js';
-import { createProductSchema } from '../schemas/product.schema.js';
+import { createProductSchema, updateProductSchema } from '../schemas/product.schema.js';
 import { randomUUID } from 'node:crypto';
 import { ZodError } from 'zod';
 import { validate as isUuid } from 'uuid';
@@ -74,7 +74,7 @@ export const productRoutes = async (app: FastifyInstance) => {
     }
 
     try {
-      const validBody = createProductSchema.parse(request.body);
+      const validBody = updateProductSchema.parse(request.body);
       const product = products[index];
 
       const updatedProduct = {
