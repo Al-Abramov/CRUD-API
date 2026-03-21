@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start:prod": "tsc && node dist/server.js",
-    "test": "vitest"
+    "test": "vitest",
+    "start:multi": "node dist/cluster/master.js"
   },
   "keywords": [],
   "author": "",
