@@ -1,15 +1,11 @@
-import Fastify from 'fastify';
 import dotenv from 'dotenv';
+import { buildApp } from './app.js';
 
 dotenv.config();
 
-const app = Fastify();
+const app = buildApp();
 
 const PORT = Number(process.env.PORT) || 4000;
-
-app.get('/', async (request, reply) => {
-  return { message: 'API is running' };
-});
 
 const start = async () => {
   try {
